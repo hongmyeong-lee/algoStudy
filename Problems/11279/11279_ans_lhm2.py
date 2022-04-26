@@ -17,9 +17,9 @@ def find_child_index(index, heap_size):
     parent = index
     left_child = (parent*2) + 1
     right_child = (parent*2) + 2
-    if left_child < heap_size and priority_queue[parent] < priority_queue[left_child]:
+    if left_child < heap_size and queue[parent] < queue[left_child]:
         parent = left_child
-    if right_child < heap_size and priority_queue[parent] < priority_queue[right_child]:
+    if right_child < heap_size and queue[parent] < queue[right_child]:
         parent = right_child
     return parent
 
@@ -34,18 +34,18 @@ def dn_heapify(index, queue):
 def heap_pop(queue):
     if len(queue) == 0:
         return 0
-    temp = priority_queue[0]
-    priority_queue[0] = priority_queue[-1]
-    priority_queue.pop()
+    temp = queue[0]
+    queue[0] = queue[-1]
+    queue.pop()
     dn_heapify(0, queue)
     return temp
 
 N = int(input())
-priority_queue = []
+queue = []
 for i in range(N):
     x = int(input())
     if x == 0:
-        print(heap_pop(priority_queue))
+        print(heap_pop(queue))
     else:
-        priority_queue.append(x)
-        up_heapify(len(priority_queue)-1, priority_queue)
+        queue.append(x)
+        up_heapify(len(queue)-1, queue)
