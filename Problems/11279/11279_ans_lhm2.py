@@ -3,12 +3,15 @@ import sys
 
 input = sys.stdin.readline
 
-def up_heapify(index, queue):
+N = int(input())
+queue = []
+
+def up_heapify(index, queue_up):
     child_index = index
     while child_index != 0:
         parent_index = (child_index-1)//2
-        if queue[parent_index] <queue[child_index]:
-            queue[parent_index],queue[child_index] = queue[child_index], queue[parent_index]
+        if queue_up[parent_index] <queue_up[child_index]:
+            queue_up[parent_index],queue_up[child_index] = queue_up[child_index], queue_up[parent_index]
             child_index = parent_index
         else:
             return
@@ -23,25 +26,23 @@ def find_child_index(index, heap_size):
         parent = right_child
     return parent
 
-def dn_heapify(index, queue):
+def dn_heapify(index, queue_dn):
     parent_index = index
-    bigger_child_index = find_child_index(parent_index, len(queue))
+    bigger_child_index = find_child_index(parent_index, len(queue_dn))
     while parent_index != bigger_child_index:
-        queue[parent_index], queue[bigger_child_index] = queue[bigger_child_index], queue[parent_index]
+        queue_dn[parent_index], queue_dn[bigger_child_index] = queue_dn[bigger_child_index], queue_dn[parent_index]
         parent_index = bigger_child_index
-        bigger_child_index = find_child_index(parent_index, len(queue))
+        bigger_child_index = find_child_index(parent_index, len(queue_dn))
 
-def heap_pop(queue):
-    if len(queue) == 0:
+def heap_pop(queue_pop):
+    if len(queue_pop) == 0:
         return 0
-    temp = queue[0]
-    queue[0] = queue[-1]
-    queue.pop()
-    dn_heapify(0, queue)
+    temp = queue_pop[0]
+    queue_pop[0] = queue_pop[-1]
+    queue_pop.pop()
+    dn_heapify(0, queue_pop)
     return temp
 
-N = int(input())
-queue = []
 for i in range(N):
     x = int(input())
     if x == 0:
